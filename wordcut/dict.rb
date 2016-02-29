@@ -18,7 +18,34 @@ module DictInfo
   end
 end
 
+module PathResolver
+  def resolve_path(lang, name)
+    File.expand_path(File.join('..', 'data', lang, name, __FILE__))
+  end
+end
+
+module BasicDictLoader
+  include PathResolver
+  def load_bundle(lang, name)
+    load(resolve_path(lang, name))
+  end
+
+  def load(path)
+    self.concat(open(path).each_line
+                 .map(&:strip)
+                 .reject(&:empty?)
+                 .map{|w| WordItem.new w})
+  end
+end
+
 class BasicDict < Array
   include DictInfo
   include DictSeeker
+  include BasicDictLoader
+
+  def self.from_bundle(lang, name)
+    dict = self.new
+    dict.load_bundle(lang, name)
+    return dict
+  end
 end
