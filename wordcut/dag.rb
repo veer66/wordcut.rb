@@ -45,7 +45,7 @@ module DagBuilder
       ch = txt[i - 1]
       pointers << new_pointer(i, dict)
       pointers = transit(pointers, ch)
-      update(i, left, pointers)
+      left = update(i, left, pointers.select(&:final))
     end
   end
 end

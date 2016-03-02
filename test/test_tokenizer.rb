@@ -13,4 +13,11 @@ class TestTokenizer < Test::Unit::TestCase
     tokens = tokenizer.tokenize("ขามกา")
     assert_equal(["ขาม", "กา"], tokens)
   end
+
+  def test_unk
+    tokenizer = BasicTokenizer.new(@dict)
+    tokens = tokenizer.tokenize("กาซามกา")
+    assert_equal(["กา", "ซาม", "กา"], tokens)
+  end
+
 end
