@@ -6,18 +6,17 @@ require_relative "../wordcut/dict.rb"
 class TestTokenizer < Test::Unit::TestCase
   def setup
     @dict = BasicDict.new ["กา", "ขา", "ขาม", "มา"].map{|w| WordItem.new(w)}
+    @tokenizer = BasicTokenizer.new(@dict)
   end
   
   def test_basic
-    tokenizer = BasicTokenizer.new(@dict)
-    tokens = tokenizer.tokenize("ขามกา")
+
+    tokens = @tokenizer.tokenize("ขามกา")
     assert_equal(["ขาม", "กา"], tokens)
   end
 
   def test_unk
-    tokenizer = BasicTokenizer.new(@dict)
-    tokens = tokenizer.tokenize("กาซามกา")
+    tokens = @tokenizer.tokenize("กาซามกา")
     assert_equal(["กา", "ซาม", "กา"], tokens)
   end
-
 end
