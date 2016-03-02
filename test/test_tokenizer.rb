@@ -19,4 +19,9 @@ class TestTokenizer < Test::Unit::TestCase
     tokens = @tokenizer.tokenize("กาซามกา")
     assert_equal(["กา", "ซาม", "กา"], tokens)
   end
+
+  def test_completely_unk
+    tokens = @tokenizer.tokenize("ซาม")
+    assert_equal(["ซาม"], tokens)
+  end
 end
