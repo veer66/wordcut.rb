@@ -1,5 +1,6 @@
 require_relative "edge_builder"
 require_relative "pointer"
+require_relative "space_slicer"
 
 module DictDagUpdater
   def update_by_dict(i, pointers)
@@ -22,16 +23,33 @@ module UnkDagUpdater
   end
 end
 
+module SpaceDagUpdater
+  def update_by_space(i, slicer)
+    s = slicer.s
+    src = self[s]      
+    edge = Edge.new(:s => s,
+                    :unk => src.unk,
+                    :chunk => src.chunk + 1,
+                    :etype => :SPACE,
+                    :payload => nil)
+    self[i] = edge
+    return i
+  end
+end
+
 module BasicDagUpdater
   include DictDagUpdater
   include UnkDagUpdater
+  include SpaceDagUpdater
   include PointersManipulator
   
-  def update(i, left, pointers)
-    if pointers&.empty?
-      update_by_unk(i, left)
-    else
+  def update(i, left, pointers, space_slicer)
+    if not pointers&.empty?
       update_by_dict(i, pointers)
+    elsif space_slicer&.final
+      update_by_space(i, space_slicer)
+    else
+      update_by_unk(i, left)
     end
   end
 end
@@ -41,11 +59,14 @@ module DagBuilder
     self[0] = init_edge
     pointers = []
     left = 0
+    space_slicer = SpaceSlicer.new(0)
     for i in 1..txt.length
       ch = txt[i - 1]
+      next_ch = i < txt.length ? txt[i] : nil
+      space_slicer.transit(ch, next_ch)
       pointers << new_pointer(i, dict)
       pointers = transit(pointers, ch)
-      left = update(i, left, pointers.select(&:final))
+      left = update(i, left, pointers.select(&:final), space_slicer)
     end
   end
 end

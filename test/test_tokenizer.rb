@@ -24,4 +24,10 @@ class TestTokenizer < Test::Unit::TestCase
     tokens = @tokenizer.tokenize("ซาม")
     assert_equal(["ซาม"], tokens)
   end
+
+  def test_latin
+    tokens = @tokenizer.tokenize("que sera sera")
+    assert_equal(["que", " ", "sera", " ", "sera"], tokens)
+  end
+
 end

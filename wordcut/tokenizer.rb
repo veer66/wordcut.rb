@@ -13,4 +13,3 @@ class BasicTokenizer
     @dag_class = BasicDag
   end
 end
-

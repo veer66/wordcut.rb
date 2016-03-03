@@ -5,7 +5,7 @@ require_relative "../wordcut/dag.rb"
 require_relative "../wordcut/edge.rb"
 require_relative "../wordcut/pointer.rb"
 require_relative "../wordcut/dict.rb"
-
+require_relative "../wordcut/space_slicer.rb"
 
 class UpdateDictDag < Array
   include EdgeBuilder
@@ -14,6 +14,10 @@ end
 
 class UpdateUnkDag < Array
   include UnkDagUpdater
+end
+
+class UpdateSpaceDag < Array
+  include SpaceDagUpdater
 end
 
 class BasicUpdateDag < Array
@@ -29,6 +33,11 @@ end
 class TestMyDag < Test::Unit::TestCase
   def setup
     @dict = TestDict.new ["กา", "ขา", "ขาม", "มา"].map{|w| WordItem.new(w)}
+    @false_slicer = Object.extend(Module.new do
+                                    def final
+                                      false
+                                    end
+                                  end)
   end
   
   def test_update_by_dict
@@ -52,11 +61,26 @@ class TestMyDag < Test::Unit::TestCase
     assert_equal(1, dag[1].unk)
   end
 
+  def test_update_by_space
+    dag = UpdateSpaceDag.new
+    dag << Edge.new
+    dag << nil
+    slicer = SpaceSlicer.new(0)
+    slicer.transit(" ", nil)
+    left = dag.update_by_space(1, slicer)
+    assert_equal(1, left)
+    assert_equal(0, dag[1].s)
+    assert_equal(1, dag[1].chunk)
+    assert_equal(0, dag[1].unk)
+    assert_equal(:SPACE, dag[1].etype)
+  end
+
+  
   def test_basic_update
     dag = BasicUpdateDag.new
     dag << Edge.new
     dag << nil
-    left = dag.update(1, 0, [])
+    left = dag.update(1, 0, [], @false_slicer)
     assert_equal(0, left)
     assert_equal(:UNK, dag[1].etype)
   end
@@ -66,11 +90,23 @@ class TestMyDag < Test::Unit::TestCase
     dag << Edge.new
     dag << nil
     final_pointers = [Pointer.new(0, 1, 1, 1, @dict, true)]
-    left = dag.update(1, 0, final_pointers)
+    left = dag.update(1, 0, final_pointers, @false_slicer)
     assert_equal(1, left)
     assert_equal(:DICT, dag[1].etype)
   end
 
+  def test_basic_update_with_space
+    dag = BasicUpdateDag.new
+    dag << Edge.new
+    dag << nil
+    slicer = SpaceSlicer.new(0)
+    slicer.transit(" ", nil)
+    left = dag.update(1, 0, [], slicer)
+    assert_equal(1, left)
+    assert_equal(:SPACE, dag[1].etype)
+  end
+
+  
   def test_build_dag
     dag = BasicDag.build(@dict, "ขามกา")
     assert_equal(6, dag.length)
