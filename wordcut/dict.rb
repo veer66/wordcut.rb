@@ -20,7 +20,7 @@ end
 
 module PathResolver
   def resolve_path(lang, name)
-    File.expand_path(File.join('..', 'data', lang, name, __FILE__))
+    File.expand_path(File.join(__FILE__, '..', '..', 'data', lang, name, ))
   end
 end
 
