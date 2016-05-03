@@ -11,6 +11,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["wordcut"]
   s.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
   s.summary = "Word segmetation tools for ASEAN languages"
-  s.files = Dir.glob("wordcut/*") + %w(README.md) + Dir.glob("data/*")
+  s.files = Dir.glob("wordcut/*") + %w(README.md LICENSE) + Dir.glob("data/*")
   s.require_path = 'wordcut'
 end
