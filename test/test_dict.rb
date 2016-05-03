@@ -2,6 +2,7 @@
 require "test/unit"
 require_relative "../wordcut/dict.rb"
 
+include Wordcut
 
 class TestBasicDictLoader < Test::Unit::TestCase
   def test_basic

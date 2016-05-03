@@ -2,6 +2,8 @@
 require "test/unit"
 require_relative "../wordcut/space_slicer.rb"
 
+include Wordcut
+
 class TestSpaceSlicer < Test::Unit::TestCase
   def setup
 

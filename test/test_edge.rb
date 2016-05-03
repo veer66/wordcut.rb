@@ -2,6 +2,8 @@
 require "test/unit"
 require_relative "../wordcut/edge.rb"
 
+include Wordcut
+
 class TestEdge < Test::Unit::TestCase
   def test_better
     e0 = Edge.new(:unk =>10, :chunk => 10)

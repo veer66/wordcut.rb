@@ -5,6 +5,8 @@ require_relative "../wordcut/edge.rb"
 require_relative "../wordcut/pointer.rb"
 require_relative "../wordcut/dict.rb"
 
+include Wordcut
+
 class TestDag < Array
   include EdgeBuilder
 end
