@@ -2,7 +2,7 @@ $LOAD_PATH << File.expand_path("../wordcut", __FILE__)
 
 Gem::Specification.new do |s|
   s.name = 'wordcut'
-  s.version = '0.0.2'
+  s.version = '0.0.4'
   s.authors = ['Vee Satayamas']
   s.email = ['v.satayamas@gmail.com']
   s.licenses = ['LGPL-3.0']
@@ -11,6 +11,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["wordcut"]
   s.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
   s.summary = "Word segmetation tools for ASEAN languages"
-  s.files = Dir.glob("wordcut/*") + %w(README.md LICENSE) + Dir.glob("data/*")
-  s.require_path = 'wordcut'
+  s.files = Dir.glob("wordcut/*") + %w(README.md LICENSE) + Dir.glob("data/**/*")
+  s.require_paths = ['.']
 end
