@@ -11,9 +11,13 @@ class TestDag < Array
   include EdgeBuilder
 end
 
-class TestDict < Array
+class TestDict
   def initialize(content)
     @content = content
+  end
+
+  def [](i)
+    @content[i]
   end
 end
 
