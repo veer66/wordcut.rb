@@ -11,3 +11,12 @@ class TestEdge < Test::Unit::TestCase
     assert_equal(-1 ,e1 <=> e0)
   end
 end
+
+class TestEdgeWithPayload < Test::Unit::TestCase
+  def test_prefer_not_nil
+    e0 = Edge.new(:unk => 10, :chunk => 10, :payload => "A")
+    e1 = Edge.new(:unk => 10, :chunk => 10)
+    assert_equal(-1, e0 <=> e1)
+    assert_equal(1, e1 <=> e0)
+  end
+end

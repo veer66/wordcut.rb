@@ -3,7 +3,9 @@ module Wordcut
   class Edge
     attr_reader :unk, :chunk, :s, :payload, :etype
     
-    CMP_FUNCS = [lambda {|e| e.unk}, lambda {|e| e.chunk}]
+    CMP_FUNCS = [lambda {|e| e.unk},
+                 lambda {|e| e.chunk},
+                 lambda {|e| e.payload ? 0 : 1}]
     
     def initialize(args = {})
       @unk = args[:unk] || 0

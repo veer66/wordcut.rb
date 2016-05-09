@@ -18,6 +18,10 @@ module Wordcut
       final = (@dict[l].headword.length == @offset + 1)
       self.class.new(@s, l, r, @offset + 1, @dict, final)
     end
+
+    def payload
+      @dict[@l].payload
+    end
   end
 
   module PointersManipulator

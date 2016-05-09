@@ -1,12 +1,21 @@
 require_relative "dict_seek"
 module Wordcut
   class WordItem
-    attr_reader :headword
+    attr_reader :headword, :payload
     def initialize(headword)
       @headword = headword
-    end
+      @payload = nil
+    end    
   end
 
+  class WordItemWithPayload
+    attr_reader :headword, :payload
+    def initialize(headword, payload)
+      @headword = headword
+      @payload = payload
+    end
+  end
+  
   module DictInfo
     def l
       0
@@ -34,7 +43,9 @@ module Wordcut
       self.concat(open(path).each_line
                    .map(&:strip)
                    .reject(&:empty?)
+                   .sort
                    .map{|w| WordItem.new w})
+
     end
   end
 
@@ -48,5 +59,9 @@ module Wordcut
       dict.load_bundle(lang, name)
       return dict
     end
+  end
+
+  class DictWithPayload < Array
+    include DictSeeker
   end
 end

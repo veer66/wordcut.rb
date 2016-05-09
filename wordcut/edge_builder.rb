@@ -13,7 +13,7 @@ module Wordcut
                  :unk => src.unk,
                  :chunk => src.chunk + 1,
                  :etype => :DICT,
-                 :payload => nil)
+                 :payload => pointer.payload)
       end                    
     end
   end

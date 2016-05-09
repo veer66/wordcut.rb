@@ -23,3 +23,20 @@ class TestBasicDict < Test::Unit::TestCase
     assert_equal 15374, dict.length
   end
 end
+
+class TestWordItemWithPayload < Test::Unit::TestCase
+  def test_basic
+    item = WordItemWithPayload.new("word", "payload")
+    assert_equal(item.headword, "word")
+    assert_equal(item.payload, "payload")
+  end
+end
+
+class TestDictWithPayloadSeeking < Test::Unit::TestCase
+  def test_basic
+    dict = DictWithPayload.new
+    dict << WordItemWithPayload.new("AA", 10)
+    dict << WordItemWithPayload.new("BB", 10)
+    assert_equal(1, dict.seek('B', 0, dict.length - 1, 0, :LEFT))
+  end
+end
