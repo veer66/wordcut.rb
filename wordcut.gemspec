@@ -2,7 +2,7 @@ $LOAD_PATH << File.expand_path("../wordcut", __FILE__)
 
 Gem::Specification.new do |s|
   s.name = 'wordcut'
-  s.version = '0.0.5'
+  s.version = '0.0.6'
   s.authors = ['Vee Satayamas']
   s.email = ['v.satayamas@gmail.com']
   s.licenses = ['LGPL-3.0']
