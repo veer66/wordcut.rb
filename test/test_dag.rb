@@ -7,6 +7,8 @@ require_relative "../wordcut/pointer.rb"
 require_relative "../wordcut/dict.rb"
 require_relative "../wordcut/space_slicer.rb"
 
+include Wordcut
+
 class UpdateDictDag < Array
   include EdgeBuilder
   include DictDagUpdater

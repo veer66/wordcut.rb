@@ -4,6 +4,8 @@ require_relative "../wordcut/pointer.rb"
 require_relative "../wordcut/dict.rb"
 require_relative "../wordcut/dict_seek.rb"
 
+include Wordcut
+
 class TestDict < Array
   include DictInfo
   include DictSeeker

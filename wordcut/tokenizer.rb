@@ -1,15 +1,17 @@
 require_relative "dag.rb"
 
-module Tokenizer
-  def tokenize(txt)
-    @dag_class.build(@dict, txt).tokens(txt)
+module Wordcut
+  module Tokenizer
+    def tokenize(txt)
+      @dag_class.build(@dict, txt).tokens(txt)
+    end
   end
-end
 
-class BasicTokenizer
-  include Tokenizer
-  def initialize(dict)
-    @dict = dict
-    @dag_class = BasicDag
+  class BasicTokenizer
+    include Tokenizer
+    def initialize(dict)
+      @dict = dict
+      @dag_class = BasicDag
+    end
   end
 end

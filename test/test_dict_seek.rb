@@ -3,6 +3,8 @@ require "test/unit"
 require_relative "../wordcut/dict_seek.rb"
 require_relative "../wordcut/dict.rb"
 
+include Wordcut
+
 class TestDict < Array
   include DictSeeker
 end

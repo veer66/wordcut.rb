@@ -3,6 +3,8 @@ require "test/unit"
 require_relative "../wordcut/tokenizer.rb"
 require_relative "../wordcut/dict.rb"
 
+include Wordcut
+
 class TestTokenizer < Test::Unit::TestCase
   def setup
     @dict = BasicDict.new ["กา", "ขา", "ขาม", "มา"].map{|w| WordItem.new(w)}
