@@ -1,4 +1,4 @@
-LOAD_PATH << File.expand_path("../wordcut", __FILE__)
+$LOAD_PATH << File.expand_path("../wordcut", __FILE__)
 
 Gem::Specification.new do |s|
   s.name = 'wordcut'
