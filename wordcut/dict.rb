@@ -59,6 +59,12 @@ module Wordcut
       dict.load_bundle(lang, name)
       return dict
     end
+
+    def self.load(path)
+      dict = self.new
+      dict.load(path)
+      return dict
+    end
   end
 
   class DictWithPayload < Array
